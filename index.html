@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>深海旅館 · 深海漫遊 Deepsearoaming | 繪畫委託</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -15,403 +17,424 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #fefcf5;
-            color: #1e4a5c;
+            background: #FFFFFF;
+            color: #2C4C6B;
             line-height: 1.4;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* 頂部導航 - 深海藍 */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background: #1f6a7c;
-            border-bottom: 1px solid #389bb2;
-            z-index: 100;
-            padding: 14px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .nav-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        /* 左上角 Logo */
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.2px;
-            color: #fff6e8;
-            background: none;
-            text-decoration: none;
-        }
-        .logo span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #e0f2f7;
-        }
-
-        /* 漢堡選單按鈕 (三橫線) */
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 22px;
-            cursor: pointer;
-            z-index: 200;
-        }
-        .hamburger span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: #fff6e8;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        /* 側邊選單 (滑出) */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background: #1f6a7c;
-            backdrop-filter: blur(16px);
-            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
-            z-index: 150;
-            transition: right 0.3s ease;
-            padding: 80px 28px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            border-left: 1px solid #389bb2;
-        }
-        .side-menu.open {
-            right: 0;
-        }
-        .side-menu a {
-            color: #fef5e3;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 500;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,245,200,0.3);
-            transition: 0.2s;
-        }
-        .side-menu a:hover {
-            color: #ffde9c;
-            padding-left: 8px;
-        }
-        /* 關閉選單的遮罩 */
-        .menu-overlay {
+        /* ========== 開屏動畫 ========== */
+        .splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: #FFFFFF;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1.2s ease-out;
+            opacity: 1;
+            pointer-events: none;
+        }
+        .splash-screen.fade-out {
+            opacity: 0;
+        }
+        .splash-content {
+            text-align: center;
+            animation: gentlePulse 1.2s ease-in-out infinite alternate;
+        }
+        .splash-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #4A90B0;
+        }
+        .splash-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #3A7C9C;
+            letter-spacing: 2px;
+        }
+        .splash-sub {
+            font-size: 0.9rem;
+            color: #7BAAC4;
+            margin-top: 12px;
+        }
+        @keyframes gentlePulse {
+            0% { opacity: 0.6; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* 導航 */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            padding: 14px 0;
+            border-bottom: 1px solid #E8EEF4;
+        }
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.2rem;  /* 字體縮小 */
+            font-weight: 700;
+            color: #4A90B0;
+            text-decoration: none;
+        }
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .hamburger span {
+            display: block;
+            height: 2.5px;
+            width: 100%;
+            background-color: #4A90B0;
+            border-radius: 3px;
+        }
+        /* 側邊選單 - 字體縮小，移除 emoji */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 260px;
+            height: 100%;
+            background: #FFFFFF;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.08);
+            z-index: 150;
+            transition: right 0.3s ease;
+            padding: 100px 24px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .side-menu.open { right: 0; }
+        .side-menu a {
+            color: #4A90B0;
+            text-decoration: none;
+            font-size: 1rem;  /* 字體縮小 */
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 1px solid #E0ECF5;
+            transition: 0.2s;
+        }
+        .side-menu a:hover { color: #2C6C8C; padding-left: 8px; }
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.15);
             z-index: 140;
             display: none;
         }
-        .menu-overlay.active {
-            display: block;
-        }
-
-        /* 按鈕風格 */
-        .btn {
-            display: inline-block;
-            background: #cfe6ef;
-            color: #1f6173;
-            padding: 10px 28px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background: #2b8b9e;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .btn-primary:hover {
-            background: #1f7182;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #2b8b9e;
-            color: #2b8b9e;
-        }
-
-        .btn-outline:hover {
-            background: #e5f4f8;
-        }
+        .menu-overlay.active { display: block; }
 
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
             position: relative;
-            z-index: 2;
+            z-index: 5;
         }
 
-        /* hero */
-        .hero {
-            padding: 64px 0 48px;
-            text-align: center;
-            background: #fefcf5;
+        /* 頂部滿版大圖 */
+        .hero-image {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 55vh;
+            min-height: 420px;
+            background-image: url('https://picsum.photos/id/104/1920/900');
+            background-size: cover;
+            background-position: center 35%;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
         }
 
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #1f6a7c;
+        /* 自我介紹區塊 */
+        .profile-wrapper {
+            position: relative;
+            margin-top: -100px;
+            z-index: 10;
+            padding: 0 20px;
         }
-
-        .hero .sub {
-            font-size: 1.2rem;
-            color: #548e9f;
-            margin-top: 16px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .social-icons {
-            margin-top: 28px;
+        .profile-section {
             display: flex;
-            gap: 24px;
-            justify-content: center;
             flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+            padding: 20px 0 30px;
         }
-        .social-icons a {
-            color: #1f6a7c;
-            text-decoration: none;
-            font-weight: 500;
-            background: #ffffffcc;
-            padding: 6px 18px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            border: 1px solid #cbe2ea;
-            backdrop-filter: blur(2px);
+        .avatar-box {
+            flex-shrink: 0;
         }
-        .social-icons a:hover {
-            background: #fff0df;
-            color: #d57a5a;
-            transform: translateY(-2px);
+        .avatar-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #FFFFFF;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            background: #FFFFFF;
         }
-
-        .section {
-            padding: 64px 0;
+        .intro-box {
+            flex: 1;
         }
-
-        .section-title {
+        .intro-name {
             font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-            color: #1f6a7c;
+            font-weight: 700;
+            color: #2C4C6B;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
-
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 3px;
-            background: #7fc1d4;
-            margin: 12px auto 0;
-            border-radius: 4px;
+        .intro-text {
+            font-size: 1rem;
+            color: #3A6C84;
+            line-height: 1.5;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
         }
-
-        /* 左右切換畫廊 */
-        .carousel-gallery {
-            max-width: 700px;
-            margin: 0 auto;
-            background: transparent;
-            border-radius: 48px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .carousel-container {
-            position: relative;
-            background: #fffdf9;
-            border-radius: 40px;
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e2dcd0;
-            overflow: hidden;
-        }
-
-        .carousel-slide {
+        .social-icons-row {
             display: flex;
-            transition: transform 0.4s ease-in-out;
+            gap: 15px;
+            margin-top: 18px;
         }
-
-        .carousel-item {
-            flex: 0 0 100%;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: #f9f3ea;
-            display: flex;
+        .social-icon {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 46px;
+            height: 46px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            color: #4A90B0;
+            font-size: 1.3rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: 1px solid #D6E4F0;
+        }
+        .social-icon:hover {
+            background: #4A90B0;
+            color: white;
+            transform: translateY(-3px);
         }
 
-        .carousel-item img {
+        /* 作品集區塊 - 標題固定不隨滾動移動 */
+        .portfolio-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            cursor: grab;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+        }
+        .portfolio-wrapper:active {
+            cursor: grabbing;
+        }
+        /* 移除滾動條兩側內邊距，確保左右無空隙 */
+        .portfolio-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4A90B0;
+            margin-bottom: 30px;
+            text-align: center;
+            background: #FFFFFF;
+            position: relative;
+            z-index: 5;
+            padding: 0 24px;
+        }
+        /* 6×3 網格：橫向 6 個作品，直向 3 行，總計 18 件，左右完全無空隙 */
+        .grid-6x3 {
+            display: inline-flex;
+            flex-direction: column;
+            background: #FFFFFF;
+            min-width: 100%;
+        }
+        .grid-row {
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+        }
+        .art-piece {
+            position: relative;
+            width: calc(100vw / 6);  /* 每個作品佔視口寬度的 1/6，左右完全無空隙 */
+            min-width: 100px;
+            aspect-ratio: 1 / 1;
+            background: #F5F9FF;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+        /* 在大屏幕上限制最大寬度，讓方格更大更舒適 */
+        @media (min-width: 1400px) {
+            .art-piece {
+                width: 233px;  /* 1400/6 ≈ 233px */
+            }
+        }
+        @media (max-width: 900px) {
+            .art-piece {
+                width: calc(100vw / 6);
+            }
+        }
+        @media (max-width: 600px) {
+            .art-piece {
+                width: calc(100vw / 6);
+            }
+        }
+        .art-piece:hover {
+            z-index: 2;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .art-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.3s ease;
         }
-
-        .carousel-caption {
-            padding: 20px 20px 24px;
-            text-align: center;
-            background: #fffdf9;
+        .art-piece:hover .art-img {
+            transform: scale(1.05);
         }
-
-        .carousel-caption h3 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1f6a7c;
-        }
-
-        .carousel-caption p {
-            color: #6f9aaa;
-            margin-top: 6px;
-            font-size: 0.95rem;
-        }
-
-        .carousel-btn {
+        .art-overlay {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(31, 106, 124, 0.7);
-            backdrop-filter: blur(6px);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+            color: white;
+            padding: 20px 8px 8px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        .art-piece:hover .art-overlay {
+            transform: translateY(0);
+        }
+        .art-overlay span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 作品詳情模態框 */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .detail-card {
+            background: #FFFFFF;
+            max-width: 460px;
+            width: 90%;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            animation: scaleIn 0.2s ease;
+        }
+        .detail-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+        .detail-text {
+            padding: 24px 28px 32px;
+        }
+        .detail-text h3 {
+            font-size: 1.6rem;
+            color: #4A90B0;
+            margin-bottom: 12px;
+        }
+        .detail-meta {
+            margin: 12px 0;
+            font-size: 0.9rem;
+            color: #6A8CA8;
+            border-top: 1px solid #E0ECF5;
+            padding-top: 12px;
+        }
+        .close-detail {
+            background: #4A90B0;
             border: none;
             color: white;
-            font-size: 2rem;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin-top: 20px;
             cursor: pointer;
-            padding: 12px 18px;
-            border-radius: 60px;
-            transition: all 0.2s;
-            z-index: 10;
-            font-weight: 300;
-            line-height: 1;
+            font-weight: 600;
         }
-        .carousel-btn:hover {
-            background: #1f6a7c;
-            transform: translateY(-50%) scale(1.02);
-        }
-        .btn-prev { left: 16px; }
-        .btn-next { right: 16px; }
-
-        .gallery-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: #cbdadf;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .dot.active {
-            background: #2b8b9e;
-            width: 28px;
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         /* 委託卡片 */
-        .services-grid {
+        .services-grid, .steps {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 28px;
             justify-content: center;
+            margin: 40px 0;
         }
-
-        .service-card {
-            background: white;
+        .service-card, .step {
+            background: #FFFFFF;
             border-radius: 32px;
-            padding: 32px 24px;
+            padding: 28px 20px;
             flex: 1;
-            min-width: 240px;
-            box-shadow: 0 10px 18px rgba(0,0,0,0.03);
-            border: 1px solid #e0d6ca;
+            min-width: 220px;
+            border: 1px solid #E8EEF4;
             text-align: center;
-            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-
-        .service-card h3 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: #418ea3;
-            margin-bottom: 12px;
-        }
-
-        .price {
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 16px 0;
-            color: #cc7a5c;
-        }
-        .price small {
-            font-size: 0.9rem;
-            font-weight: normal;
-            color: #8dafbb;
-        }
-
-        /* 流程 */
-        .steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 20px;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 180px;
-            background: #fefef9;
-            border-radius: 48px;
-            padding: 24px 16px;
-            text-align: center;
-            border: 1px solid #e0d6ca;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.02);
-        }
-
-        .step-num {
-            width: 48px;
-            height: 48px;
-            background: #e1f1f7;
-            color: #30829b;
-            font-weight: 800;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 60px;
-            margin: 0 auto 16px;
+        .price { font-size: 1.9rem; font-weight: 800; color: #4A90B0; }
+        .btn-primary {
+            background: #4A90B0;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         /* 表單 */
@@ -419,47 +442,43 @@
             background: white;
             border-radius: 48px;
             padding: 40px 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0d6ca;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E8EEF4;
             max-width: 780px;
             margin: 0 auto;
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         label {
             font-weight: 500;
             display: block;
             margin-bottom: 8px;
-            color: #1d6578;
+            color: #4A6A84;
         }
-
         input, select, textarea {
             width: 100%;
             padding: 14px 18px;
             border-radius: 32px;
-            border: 1px solid #d4cdc0;
+            border: 1px solid #D0DEE8;
             background: #ffffff;
-            color: #1f4d5c;
+            color: #2C4C6B;
             font-family: inherit;
             font-size: 0.95rem;
         }
-
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #57b5cc;
-            box-shadow: 0 0 0 3px #b8e2ee;
+            border-color: #4A90B0;
+            box-shadow: 0 0 0 3px #E0ECF5;
         }
 
-        /* footer 全新版權 */
+        /* 底部版權 */
         footer {
-            background: #1f6a7c;
+            background: #2C4C6B;
             padding: 36px 0 32px;
             text-align: center;
-            color: #fcf7e8;
-            border-top: 1px solid #479cb0;
+            color: #E8F0F8;
+            border-top: 1px solid #4A6A84;
             margin-top: 24px;
         }
         .footer-copyright {
@@ -486,7 +505,7 @@
             margin: 18px 0 8px;
         }
         .footer-social-links a {
-            color: #ffecb3;
+            color: #D0E0EE;
             text-decoration: none;
             font-size: 0.9rem;
             transition: 0.2s;
@@ -496,161 +515,106 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 760px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-inner { flex-wrap: nowrap; }
-            .container { padding: 0 20px; }
-            .carousel-btn { padding: 8px 14px; font-size: 1.5rem; }
-        }
-
-        /* 燈箱 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            cursor: pointer;
-        }
-        .modal-content {
-            max-width: 85vw;
-            max-height: 85vh;
-            background: transparent;
-            border-radius: 32px;
-            overflow: hidden;
-        }
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 24px;
-        }
-        .close-modal {
-            position: absolute;
-            top: 24px;
-            right: 32px;
-            color: white;
-            font-size: 2.4rem;
-            font-weight: 300;
-            cursor: pointer;
-            background: rgba(0,0,0,0.5);
-            width: 48px;
-            height: 48px;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .social-icons-row {
+                justify-content: center;
+            }
+            .hero-image {
+                height: 45vh;
+                min-height: 350px;
+            }
+            .profile-wrapper {
+                margin-top: -70px;
+            }
+            .avatar-img {
+                width: 150px;
+                height: 150px;
+            }
+            .art-overlay span {
+                font-size: 0.6rem;
+                white-space: normal;
+                line-height: 1.2;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="container nav-inner">
-        <!-- 左上角：深海旅館 -->
-        <div class="logo"> 深海旅館 </div>
-        <!-- 右上角漢堡選單（三橫線） -->
-        <div class="hamburger" id="hamburgerBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<!-- 開屏動畫 -->
+<div class="splash-screen" id="splashScreen">
+    <div class="splash-content">
+        <div class="splash-logo">🐚📖</div>
+        <div class="splash-text">深海旅館 · 深海漫遊</div>
+        <div class="splash-sub">Deepsearoaming</div>
     </div>
-</nav>
-
-<!-- 側邊選單內容 -->
-<div class="side-menu" id="sideMenu">
-    <a href="#gallery">作品參考</a>
-    <a href="#services">價目表</a>
-    <a href="#contact">聯絡方式</a>
 </div>
-<div class="menu-overlay" id="menuOverlay"></div>
 
-<main>
-    <!-- Hero -->
-    <div class="hero">
-        <div class="container">
-            <h1>深海旅館 · 繪畫委託</h1>
-            <div class="sub">將回憶化作浪潮，每一筆都是深海的呢喃。<br>角色設計 · 深海系插畫 · 靈魂委託</div>
-            <div class="social-icons">
-                <a href="https://instagram.com/deepsearoaming" target="_blank">📷 IG @deepsearoaming</a>
-                <a href="https://twitter.com/deepsearoaming" target="_blank">🐦 X @deepsearoaming</a>
-                <a href="https://facebook.com/深海漫遊" target="_blank">📘 FB 深海漫遊</a>
-            </div>
-            <div style="margin-top: 36px;">
-                <a href="#contact" class="btn btn-primary" style="margin-right: 12px;">🐟 開始委託</a>
-                <a href="#gallery" class="btn btn-outline">🌊 瀏覽深海畫廊</a>
+<div class="main-content" id="mainContent">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">深海旅館</div>
+            <div class="hamburger" id="hamburgerBtn">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- 左右切換畫廊：作品參考區塊 -->
-    <div class="section" id="gallery">
-        <div class="container">
-            <h2 class="section-title">深海旅館 · 典藏繪作</h2>
-            <div class="carousel-gallery">
-                <div class="carousel-container">
-                    <div class="carousel-slide" id="carouselSlide"></div>
-                    <button class="carousel-btn btn-prev" id="prevBtn">‹</button>
-                    <button class="carousel-btn btn-next" id="nextBtn">›</button>
+    <div class="side-menu" id="sideMenu">
+        <a href="#portfolio">作品集</a>
+        <a href="#services">價目表</a>
+        <a href="#contact">聯絡方式</a>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- 頂部滿版大圖 -->
+    <div class="hero-image"></div>
+
+    <div class="container">
+        <!-- 自我介紹區塊 -->
+        <div class="profile-wrapper">
+            <div class="profile-section">
+                <div class="avatar-box">
+                    <img class="avatar-img" src="https://picsum.photos/id/64/300/300" alt="深海漫遊頭像">
                 </div>
-                <div class="carousel-caption" id="carouselCaption">
-                    <h3>深海旅館 · 大廳</h3>
-                    <p>古老吊燈與水母光影</p>
+                <div class="intro-box">
+                    <div class="intro-name">深海漫遊 · Deepsearoaming</div>
+                    <div class="intro-text">深海旅館的主人，擅長繪製深海奇幻、角色靈魂。<br>將潮汐與夢境化為筆觸，開放委託中，歡迎交流。</div>
+                    <div class="social-icons-row">
+                        <a href="https://instagram.com/deepsearoaming" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/deepsearoaming" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://facebook.com/深海漫遊" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="mailto:deepsearoaming@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
-                <div class="gallery-dots" id="dotsContainer"></div>
             </div>
-            <p style="text-align: center; margin-top: 32px; color: #639bac;">✨ 點開畫作放大細節，左右瀏覽深海收藏</p>
         </div>
-    </div>
 
-    <!-- 委託方案 (價目表) -->
-    <div class="section" id="services" style="background: #fefcf5;">
-        <div class="container">
-            <h2 class="section-title">深海旅店 · 夢境艙位</h2>
+        <!-- 作品集標題（固定不隨滾動移動） -->
+        <h2 class="section-title" id="portfolio">深海畫廊 · 作品集</h2>
+        
+        <!-- 作品集：6×3 網格 (橫向6個，直向3行，共18件)，左右無空隙 -->
+        <div class="portfolio-wrapper">
+            <div class="grid-6x3" id="grid6x3"></div>
+        </div>
+
+        <!-- 委託方案 -->
+        <div id="services">
+            <h2 class="section-title">夢境艙位 · 價目表</h2>
             <div class="services-grid">
-                <div class="service-card">
-                    <h3>🐚 水母燈 · 輕量繪</h3>
-                    <div class="price">HK$380 <small>起</small></div>
-                    <p>單人半身 / Q版深海住民<br>溫柔淡彩，微光背景</p>
-                    <div>🪼 適合頭像/社群浮游</div>
-                </div>
-                <div class="service-card">
-                    <h3>🌊 珊瑚宮 · 精緻立繪</h3>
-                    <div class="price">HK$880 <small>起</small></div>
-                    <p>全身角色／深海OC設計<br>細膩上色+專屬道具</p>
-                    <div>🐟 深海人設/紀念插圖</div>
-                </div>
-                <div class="service-card">
-                    <h3>🏯 遺忘之淵 · 情境繪</h3>
-                    <div class="price">HK$1580 <small>起</small></div>
-                    <p>雙人以上+完整深海場景<br>古老旅館氛圍敘事</p>
-                    <div>🌌 小說封面/深淵記憶</div>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 28px; font-size: 0.85rem;">※ 依據複雜度微調，歡迎帶故事入住深海旅館。</p>
-        </div>
-    </div>
-
-    <!-- 委託流程 -->
-    <div class="section" id="process">
-        <div class="container">
-            <h2 class="section-title">深海旅館 · 入住委託流程</h2>
-            <div class="steps">
-                <div class="step"><div class="step-num">1</div><strong>📜 投遞漂流瓶</strong><br><span>描述角色/情境/風格參考</span></div>
-                <div class="step"><div class="step-num">2</div><strong>⚓ 報價&檔期</strong><br><span>確認艙位、支付訂金(50%)</span></div>
-                <div class="step"><div class="step-num">3</div><strong>✍️ 深海草稿</strong><br><span>線稿調整2次，寧靜打磨</span></div>
-                <div class="step"><div class="step-num">4</div><strong>🎁 完稿交付</strong><br><span>數位檔案＋深海旅館小禮</span></div>
+                <div class="service-card"><h3>🐚 水母燈 · 輕量繪</h3><div class="price">HK$380 <small>起</small></div><p>單人半身/Q版<br>溫柔淡彩</p></div>
+                <div class="service-card"><h3>🌊 珊瑚宮 · 精緻立繪</h3><div class="price">HK$880 <small>起</small></div><p>全身角色/深海OC<br>細膩上色</p></div>
+                <div class="service-card"><h3>🏯 遺忘之淵 · 情境繪</h3><div class="price">HK$1580 <small>起</small></div><p>雙人+深海場景<br>敘事插畫</p></div>
             </div>
         </div>
-    </div>
 
-    <!-- 聯絡方式表單 -->
-    <div class="section" id="contact">
-        <div class="container">
+        <!-- 委託表單 -->
+        <div id="contact" style="margin: 60px 0;">
             <h2 class="section-title">旅店來信 · 委託洽詢</h2>
             <div class="form-card">
                 <form id="commissionForm">
@@ -659,7 +623,7 @@
                         <input type="text" id="name" required placeholder="例如：深潛者艾莉">
                     </div>
                     <div class="form-group">
-                        <label>電子信箱 (寄送深海水紋信件) *</label>
+                        <label>電子信箱 *</label>
                         <input type="email" id="email" required placeholder="your@deepsea.com">
                     </div>
                     <div class="form-group">
@@ -672,215 +636,195 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>漂流瓶訊息 (繪畫需求) *</label>
-                        <textarea rows="4" id="message" placeholder="請描述角色外觀、深海背景故事、想要的氛圍... 例如：『人魚坐在旅館窗邊凝視沉船』"></textarea>
-                        <div class="inline-note" style="color:#6f9aaa;">我會在潮汐之間回覆您 (1~2個工作天內)</div>
+                        <label>漂流瓶訊息 *</label>
+                        <textarea rows="4" id="message" placeholder="請描述角色外觀、深海背景故事、想要的氛圍..."></textarea>
                     </div>
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" style="padding: 12px 36px;">🌊 投遞漂流瓶</button>
+                        <button type="submit" class="btn-primary">🌊 投遞漂流瓶</button>
                     </div>
-                    <p style="font-size: 0.7rem; text-align: center; margin-top: 20px; color:#528f9e;">也可直接聯繫 IG @deepsearoaming 或 X @deepsearoaming<br>深海漫遊 Deepsearoaming 等待您的故事</p>
+                    <p style="font-size: 0.7rem; text-align: center; margin-top: 20px; color:#6A8CA8;">也可直接聯繫 IG / X / FB，深海漫遊等待您的故事</p>
                 </form>
-                <div id="formFeedback" style="margin-top: 20px; text-align: center; font-weight: 500; color:#cc7a5c;"></div>
+                <div id="formFeedback" style="margin-top: 20px; text-align: center; font-weight: 500; color:#4A90B0;"></div>
             </div>
         </div>
     </div>
-</main>
 
-<footer>
-    <div class="container">
-        <div class="footer-copyright">
-            <p>© 2026 深海漫遊 · Deepsearoaming．版權所有</p>
-            <p>所有作品的著作權全歸我方所有。</p>
-            <p>作品僅供參考，禁止私自下載用於AI訓練。</p>
+    <!-- 底部版權 -->
+    <footer>
+        <div class="container">
+            <div class="footer-copyright">
+                <p>© 2026 深海漫遊 · Deepsearoaming．版權所有</p>
+                <p>所有創作作品的著作權全歸我方所有。</p>
+                <p>作品僅供參考，禁止私自下載用於AI訓練。</p>
+            </div>
+            <div class="footer-social-links">
+                <a href="https://instagram.com/deepsearoaming" target="_blank">IG: @deepsearoaming</a>
+                <a href="https://twitter.com/deepsearoaming" target="_blank">X: @deepsearoaming</a>
+                <a href="https://facebook.com/深海漫遊" target="_blank">FB: 深海漫遊</a>
+                <a href="mailto:deepsearoaming@gmail.com">✉️ deepsearoaming@gmail.com</a>
+            </div>
+            <div class="footer-legal">
+                深海旅館 · 深海漫遊 保留一切委託創作解釋權
+            </div>
         </div>
-        <div class="footer-social-links">
-            <a href="https://instagram.com/deepsearoaming" target="_blank">IG: @deepsearoaming</a>
-            <a href="https://twitter.com/deepsearoaming" target="_blank">X: @deepsearoaming</a>
-            <a href="https://facebook.com/深海漫遊" target="_blank">FB: 深海漫遊</a>
-            <a href="mailto:deepsearoaming@gmail.com">✉️ deepsearoaming@gmail.com</a>
-        </div>
-        <div class="footer-legal">
-            請勿隨意擷取使用或轉載此網站內容。
+    </footer>
+</div>
 
+<!-- 作品詳情彈窗 -->
+<div id="detailModal" class="detail-modal">
+    <div class="detail-card">
+        <img id="detailImg" src="" alt="作品詳情">
+        <div class="detail-text">
+            <h3 id="detailTitle"></h3>
+            <div id="detailDesc" class="detail-meta"></div>
+            <button class="close-detail" id="closeDetailBtn">關閉</button>
         </div>
-    </div>
-</footer>
-
-<!-- 圖片放大燈箱 -->
-<div id="imageModal" class="modal">
-    <span class="close-modal">✕</span>
-    <div class="modal-content">
-        <img id="modalImg" src="" alt="深海畫作">
     </div>
 </div>
 
 <script>
-    // 深海旅館作品資料 (左右切換畫廊)
-    const deepArtworks = [
-        { title: "深海旅館 · 大廳", desc: "古老吊燈與水母光影", img: "https://picsum.photos/id/104/800/800" },
-        { title: "人魚房客", desc: "委託·深海住民半身像", img: "https://picsum.photos/id/128/800/800" },
-        { title: "遺忘之淵", desc: "雙人插畫 深海記憶", img: "https://picsum.photos/id/155/800/800" },
-        { title: "珊瑚郵差", desc: "角色設計·溫暖深海", img: "https://picsum.photos/id/29/800/800" },
-        { title: "沉船茶會", desc: "情境委託 奇幻敘事", img: "https://picsum.photos/id/96/800/800" },
-        { title: "深海漫遊者", desc: "深海漫遊Deepsearoaming 原創", img: "https://picsum.photos/id/118/800/800" },
-        { title: "水母燈侍女", desc: "輕量插畫·旅館服務生", img: "https://picsum.photos/id/106/800/800" },
-        { title: "潮間帶書閣", desc: "精緻背景練習", img: "https://picsum.photos/id/20/800/800" },
-        { title: "星與海溝", desc: "夢幻深海氛圍", img: "https://picsum.photos/id/169/800/800" }
+    // 作品資料：18 件作品 (3 行 × 6 列 = 18)
+    const artworks18 = [
+        { title: "深海旅館 · 大廳", year: "2025", price: "HK$1,200", size: "40x40 cm", img: "https://picsum.photos/id/104/500/500", desc: "水母光影與古老吊燈。" },
+        { title: "人魚房客", year: "2025", price: "HK$880", size: "30x30 cm", img: "https://picsum.photos/id/128/500/500", desc: "半身人魚，溫柔深海委託。" },
+        { title: "遺忘之淵", year: "2024", price: "HK$2,200", size: "50x70 cm", img: "https://picsum.photos/id/155/500/500", desc: "雙人插畫，深淵記憶。" },
+        { title: "珊瑚郵差", year: "2025", price: "HK$980", size: "35x35 cm", img: "https://picsum.photos/id/29/500/500", desc: "深海角色設計。" },
+        { title: "沉船茶會", year: "2024", price: "HK$1,800", size: "45x45 cm", img: "https://picsum.photos/id/96/500/500", desc: "奇幻敘事情境。" },
+        { title: "深海漫遊者", year: "2025", price: "HK$1,500", size: "40x50 cm", img: "https://picsum.photos/id/118/500/500", desc: "原創深海漫遊主角。" },
+        { title: "水母燈侍女", year: "2025", price: "HK$760", size: "28x28 cm", img: "https://picsum.photos/id/106/500/500", desc: "旅館服務生輕量插畫。" },
+        { title: "潮間帶書閣", year: "2024", price: "HK$1,350", size: "36x36 cm", img: "https://picsum.photos/id/20/500/500", desc: "精緻背景練習。" },
+        { title: "星與海溝", year: "2025", price: "HK$2,000", size: "60x40 cm", img: "https://picsum.photos/id/169/500/500", desc: "夢幻深海氛圍。" },
+        { title: "深海寶箱", year: "2025", price: "HK$1,100", size: "32x32 cm", img: "https://picsum.photos/id/186/500/500", desc: "藏寶箱與珍珠光澤。" },
+        { title: "月光水母", year: "2025", price: "HK$950", size: "38x38 cm", img: "https://picsum.photos/id/22/500/500", desc: "發光水母與深海夜色。" },
+        { title: "海溝圖書館", year: "2024", price: "HK$2,500", size: "55x70 cm", img: "https://picsum.photos/id/42/500/500", desc: "古老藏書與深海知識。" },
+        { title: "珍珠貝殼", year: "2025", price: "HK$820", size: "30x30 cm", img: "https://picsum.photos/id/36/500/500", desc: "貝殼中的珍珠光芒。" },
+        { title: "深海燈籠魚", year: "2025", price: "HK$1,050", size: "35x35 cm", img: "https://picsum.photos/id/13/500/500", desc: "燈籠魚照亮深海。" },
+        { title: "古代沉船", year: "2024", price: "HK$1,980", size: "50x50 cm", img: "https://picsum.photos/id/124/500/500", desc: "沉船遺跡探險。" },
+        { title: "龍宮傳說", year: "2025", price: "HK$3,200", size: "70x50 cm", img: "https://picsum.photos/id/163/500/500", desc: "華麗龍宮場景。" },
+        { title: "海神祭典", year: "2025", price: "HK$2,800", size: "60x60 cm", img: "https://picsum.photos/id/182/500/500", desc: "深海祭祀神秘場面。" },
+        { title: "泡沫幻影", year: "2024", price: "HK$1,250", size: "32x32 cm", img: "https://picsum.photos/id/67/500/500", desc: "泡沫與光影交織。" }
     ];
-
-    let currentIndex = 0;
-    const slideContainer = document.getElementById('carouselSlide');
-    const captionTitle = document.querySelector('#carouselCaption h3');
-    const captionDesc = document.querySelector('#carouselCaption p');
-    const dotsContainer = document.getElementById('dotsContainer');
-
-    function buildCarousel() {
-        slideContainer.innerHTML = '';
-        deepArtworks.forEach((art, idx) => {
-            const slideDiv = document.createElement('div');
-            slideDiv.className = 'carousel-item';
-            const img = document.createElement('img');
-            img.src = art.img;
-            img.alt = art.title;
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openModal(art.img, art.title);
-            });
-            slideDiv.appendChild(img);
-            slideContainer.appendChild(slideDiv);
+    
+    // 渲染 6×3 網格：3 行，每行 6 件
+    const gridContainer = document.getElementById('grid6x3');
+    function render6x3Grid() {
+        gridContainer.innerHTML = '';
+        // 3 行
+        for (let row = 0; row < 3; row++) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'grid-row';
+            // 每行 6 件
+            for (let col = 0; col < 6; col++) {
+                const idx = row * 6 + col;
+                if (idx >= artworks18.length) break;
+                const item = artworks18[idx];
+                const card = document.createElement('div');
+                card.className = 'art-piece';
+                card.innerHTML = `
+                    <img class="art-img" src="${item.img}" alt="${item.title}" loading="lazy">
+                    <div class="art-overlay"><span>${item.title}</span></div>
+                `;
+                card.addEventListener('click', () => {
+                    document.getElementById('detailImg').src = item.img;
+                    document.getElementById('detailTitle').innerText = item.title;
+                    document.getElementById('detailDesc').innerHTML = `
+                        <strong>📅 年份：</strong> ${item.year}<br>
+                        <strong>💰 費用：</strong> ${item.price}<br>
+                        <strong>📐 尺寸：</strong> ${item.size}<br>
+                        <strong>📖 描述：</strong> ${item.desc}
+                    `;
+                    document.getElementById('detailModal').style.display = 'flex';
+                });
+                rowDiv.appendChild(card);
+            }
+            gridContainer.appendChild(rowDiv);
+        }
+    }
+    
+    // 橫向捲軸拖拽功能
+    const scrollContainer = document.querySelector('.portfolio-wrapper');
+    let isDown = false;
+    let startX, scrollLeftPos;
+    if (scrollContainer) {
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeftPos = scrollContainer.scrollLeft;
+            scrollContainer.style.cursor = 'grabbing';
         });
-        updateCarousel();
-        createDots();
-        updateCaption();
-    }
-
-    function updateCarousel() {
-        const translateX = -currentIndex * 100;
-        slideContainer.style.transform = `translateX(${translateX}%)`;
-        updateDotsActive();
-        updateCaption();
-    }
-
-    function updateCaption() {
-        const art = deepArtworks[currentIndex];
-        captionTitle.innerText = art.title;
-        captionDesc.innerText = art.desc;
-    }
-
-    function createDots() {
-        dotsContainer.innerHTML = '';
-        deepArtworks.forEach((_, idx) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (idx === currentIndex) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                currentIndex = idx;
-                updateCarousel();
-            });
-            dotsContainer.appendChild(dot);
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
         });
-    }
-
-    function updateDotsActive() {
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((dot, idx) => {
-            if (idx === currentIndex) dot.classList.add('active');
-            else dot.classList.remove('active');
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
         });
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.2;
+            scrollContainer.scrollLeft = scrollLeftPos - walk;
+        });
+        scrollContainer.style.cursor = 'grab';
     }
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + deepArtworks.length) % deepArtworks.length;
-        updateCarousel();
+    // 關閉詳情
+    document.getElementById('closeDetailBtn').addEventListener('click', () => {
+        document.getElementById('detailModal').style.display = 'none';
     });
-    document.getElementById('nextBtn').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % deepArtworks.length;
-        updateCarousel();
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('detailModal');
+        if(e.target === modal) modal.style.display = 'none';
     });
 
-    // 燈箱
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    function openModal(imgSrc, altText) {
-        modal.style.display = 'flex';
-        modalImg.src = imgSrc;
-        modalImg.alt = altText;
-        document.body.style.overflow = 'hidden';
-    }
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-    modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-    });
-    document.querySelector('.close-modal')?.addEventListener('click', closeModal);
+    // 開屏動畫
+    const splash = document.getElementById('splashScreen');
+    const mainContent = document.getElementById('mainContent');
+    setTimeout(() => {
+        splash.classList.add('fade-out');
+        setTimeout(() => {
+            splash.style.display = 'none';
+            mainContent.classList.add('visible');
+        }, 1200);
+    }, 1500);
 
-    // 漢堡選單互動
+    // 漢堡選單
     const hamburger = document.getElementById('hamburgerBtn');
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.getElementById('menuOverlay');
-    function openMenu() {
-        sideMenu.classList.add('open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-        sideMenu.classList.remove('open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
     hamburger.addEventListener('click', openMenu);
     overlay.addEventListener('click', closeMenu);
-    // 點選單內連結後關閉
-    const menuLinks = sideMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
+    document.querySelectorAll('.side-menu a').forEach(link => {
         link.addEventListener('click', (e) => {
             closeMenu();
             const targetId = link.getAttribute('href').substring(1);
-            const targetEl = document.getElementById(targetId);
-            if(targetEl) {
-                e.preventDefault();
-                targetEl.scrollIntoView({ behavior: 'smooth' });
-            }
+            const target = document.getElementById(targetId);
+            if(target) target.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
     // 表單提交
     const form = document.getElementById('commissionForm');
-    const feedbackDiv = document.getElementById('formFeedback');
+    const feedback = document.getElementById('formFeedback');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
         if (!name || !email || !message) {
-            feedbackDiv.innerHTML = '<span style="color:#c96742;">🌊 請完整填寫漂流瓶訊息，讓深海旅館聽見您的故事～</span>';
+            feedback.innerHTML = '<span style="color:#4A90B0;">🌊 請完整填寫漂流瓶訊息～</span>';
             return;
         }
-        feedbackDiv.innerHTML = '<span style="color:#418ea3;">✨ 漂流瓶已投入洋流！深海漫遊會盡快回覆您，一起編織屬於深海的繪卷 🐙✨</span>';
+        feedback.innerHTML = '<span style="color:#4A90B0;">✨ 漂流瓶已投入洋流！深海漫遊會盡快回覆您 🐙✨</span>';
         form.reset();
-        setTimeout(() => {
-            feedbackDiv.innerHTML = '';
-        }, 6000);
+        setTimeout(() => feedback.innerHTML = '', 5000);
     });
 
-    // 平滑導航 (保留)
-    document.querySelectorAll('.hero .btn, .social-icons a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const hash = this.getAttribute('href');
-            if (hash && hash.startsWith('#')) {
-                e.preventDefault();
-                const targetId = hash.substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    buildCarousel();
+    render6x3Grid();
 </script>
 </body>
 </html>
