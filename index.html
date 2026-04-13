@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>畫夢手札 · 繪畫委託工作室</title>
-    <!-- Google Fonts & 簡約重置 -->
+    <title>深海旅館 · 深海漫遊 Deepsearoaming | 繪畫委託</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,28 +15,21 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fefaf5;
-            color: #2c2418;
+            background: #fefcf5;
+            color: #1e4a5c;
             line-height: 1.4;
             scroll-behavior: smooth;
         }
 
-        /* 容器 */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* 導航欄 */
+        /* 頂部導航 - 深海藍 */
         .navbar {
             position: sticky;
             top: 0;
-            background: rgba(254, 250, 245, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #f0e4d4;
+            background: #1f6a7c;
+            border-bottom: 1px solid #389bb2;
             z-index: 100;
-            padding: 16px 0;
+            padding: 14px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .nav-inner {
@@ -47,38 +40,94 @@
             gap: 16px;
         }
 
+        /* 左上角 Logo */
         .logo {
             font-size: 1.6rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #c07a5b, #9b5e3c);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            font-weight: 500;
-        }
-
-        .nav-links a {
+            letter-spacing: -0.2px;
+            color: #fff6e8;
+            background: none;
             text-decoration: none;
-            color: #3e2c1f;
-            transition: color 0.2s;
-            font-size: 1rem;
+        }
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #e0f2f7;
         }
 
-        .nav-links a:hover {
-            color: #c17b4f;
+        /* 漢堡選單按鈕 (三橫線) */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #fff6e8;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* 側邊選單 (滑出) */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: #1f6a7c;
+            backdrop-filter: blur(16px);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            z-index: 150;
+            transition: right 0.3s ease;
+            padding: 80px 28px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            border-left: 1px solid #389bb2;
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .side-menu a {
+            color: #fef5e3;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,245,200,0.3);
+            transition: 0.2s;
+        }
+        .side-menu a:hover {
+            color: #ffde9c;
+            padding-left: 8px;
+        }
+        /* 關閉選單的遮罩 */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 140;
+            display: none;
+        }
+        .menu-overlay.active {
+            display: block;
         }
 
         /* 按鈕風格 */
         .btn {
             display: inline-block;
-            background: #d9c2a7;
-            color: #2c2418;
+            background: #cfe6ef;
+            color: #1f6173;
             padding: 10px 28px;
             border-radius: 40px;
             text-decoration: none;
@@ -90,50 +139,83 @@
         }
 
         .btn-primary {
-            background: #c2855e;
+            background: #2b8b9e;
             color: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         .btn-primary:hover {
-            background: #a86e48;
+            background: #1f7182;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.08);
         }
 
         .btn-outline {
             background: transparent;
-            border: 1.5px solid #c2855e;
-            color: #c2855e;
+            border: 1.5px solid #2b8b9e;
+            color: #2b8b9e;
         }
 
         .btn-outline:hover {
-            background: #c2855e20;
+            background: #e5f4f8;
         }
 
-        /* hero 區塊 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* hero */
         .hero {
             padding: 64px 0 48px;
             text-align: center;
+            background: #fefcf5;
         }
 
         .hero h1 {
             font-size: 3rem;
             font-weight: 700;
-            letter-spacing: -1px;
-            color: #3b2a1c;
+            letter-spacing: -0.5px;
+            color: #1f6a7c;
         }
 
-        .hero p {
+        .hero .sub {
             font-size: 1.2rem;
-            color: #6b4f32;
+            color: #548e9f;
             margin-top: 16px;
-            max-width: 580px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* 畫廊區塊 (作品展示) */
+        .social-icons {
+            margin-top: 28px;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .social-icons a {
+            color: #1f6a7c;
+            text-decoration: none;
+            font-weight: 500;
+            background: #ffffffcc;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            border: 1px solid #cbe2ea;
+            backdrop-filter: blur(2px);
+        }
+        .social-icons a:hover {
+            background: #fff0df;
+            color: #d57a5a;
+            transform: translateY(-2px);
+        }
+
         .section {
             padding: 64px 0;
         }
@@ -144,66 +226,122 @@
             margin-bottom: 40px;
             text-align: center;
             position: relative;
-            display: inline-block;
-            width: 100%;
+            color: #1f6a7c;
         }
 
         .section-title:after {
             content: '';
             display: block;
-            width: 64px;
+            width: 70px;
             height: 3px;
-            background: #d9b48b;
+            background: #7fc1d4;
             margin: 12px auto 0;
             border-radius: 4px;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 32px;
-        }
-
-        .art-card {
-            background: white;
-            border-radius: 28px;
+        /* 左右切換畫廊 */
+        .carousel-gallery {
+            max-width: 700px;
+            margin: 0 auto;
+            background: transparent;
+            border-radius: 48px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.03), 0 6px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid #f2e4d8;
+            position: relative;
         }
 
-        .art-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 30px -12px rgba(0,0,0,0.15);
+        .carousel-container {
+            position: relative;
+            background: #fffdf9;
+            border-radius: 40px;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e2dcd0;
+            overflow: hidden;
         }
 
-        .art-img {
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
             width: 100%;
             aspect-ratio: 1 / 1;
+            background: #f9f3ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            background: #f0e3d8;
             display: block;
-            transition: transform 0.4s;
         }
 
-        .art-info {
-            padding: 18px 16px 20px;
+        .carousel-caption {
+            padding: 20px 20px 24px;
+            text-align: center;
+            background: #fffdf9;
         }
 
-        .art-title {
-            font-weight: 700;
-            font-size: 1.2rem;
+        .carousel-caption h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1f6a7c;
         }
 
-        .art-desc {
-            font-size: 0.85rem;
-            color: #7a6248;
+        .carousel-caption p {
+            color: #6f9aaa;
             margin-top: 6px;
+            font-size: 0.95rem;
         }
 
-        /* 委託方案卡片 */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(31, 106, 124, 0.7);
+            backdrop-filter: blur(6px);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 12px 18px;
+            border-radius: 60px;
+            transition: all 0.2s;
+            z-index: 10;
+            font-weight: 300;
+            line-height: 1;
+        }
+        .carousel-btn:hover {
+            background: #1f6a7c;
+            transform: translateY(-50%) scale(1.02);
+        }
+        .btn-prev { left: 16px; }
+        .btn-next { right: 16px; }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #cbdadf;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dot.active {
+            background: #2b8b9e;
+            width: 28px;
+        }
+
+        /* 委託卡片 */
         .services-grid {
             display: flex;
             flex-wrap: wrap;
@@ -217,8 +355,8 @@
             padding: 32px 24px;
             flex: 1;
             min-width: 240px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-            border: 1px solid #eedfcb;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.03);
+            border: 1px solid #e0d6ca;
             text-align: center;
             transition: all 0.2s;
         }
@@ -226,7 +364,7 @@
         .service-card h3 {
             font-size: 1.7rem;
             font-weight: 700;
-            color: #c2855e;
+            color: #418ea3;
             margin-bottom: 12px;
         }
 
@@ -234,15 +372,15 @@
             font-size: 2rem;
             font-weight: 800;
             margin: 16px 0;
-            color: #2c2418;
+            color: #cc7a5c;
         }
-
         .price small {
             font-size: 0.9rem;
             font-weight: normal;
+            color: #8dafbb;
         }
 
-        /* 流程區塊 */
+        /* 流程 */
         .steps {
             display: flex;
             flex-wrap: wrap;
@@ -254,18 +392,19 @@
         .step {
             flex: 1;
             min-width: 180px;
-            background: #fff9f2;
+            background: #fefef9;
             border-radius: 48px;
             padding: 24px 16px;
             text-align: center;
-            border: 1px solid #f2e2d0;
+            border: 1px solid #e0d6ca;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.02);
         }
 
         .step-num {
             width: 48px;
             height: 48px;
-            background: #c2855e20;
-            color: #c2855e;
+            background: #e1f1f7;
+            color: #30829b;
             font-weight: 800;
             font-size: 1.5rem;
             display: flex;
@@ -275,13 +414,13 @@
             margin: 0 auto 16px;
         }
 
-        /* 表單區塊 */
+        /* 表單 */
         .form-card {
             background: white;
             border-radius: 48px;
             padding: 40px 32px;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
-            border: 1px solid #eedbcb;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0d6ca;
             max-width: 780px;
             margin: 0 auto;
         }
@@ -294,54 +433,83 @@
             font-weight: 500;
             display: block;
             margin-bottom: 8px;
+            color: #1d6578;
         }
 
         input, select, textarea {
             width: 100%;
             padding: 14px 18px;
             border-radius: 32px;
-            border: 1px solid #e2cfbb;
-            background: #fefaf7;
+            border: 1px solid #d4cdc0;
+            background: #ffffff;
+            color: #1f4d5c;
             font-family: inherit;
             font-size: 0.95rem;
-            transition: 0.2s;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #c2855e;
-            box-shadow: 0 0 0 3px #c2855e30;
+            border-color: #57b5cc;
+            box-shadow: 0 0 0 3px #b8e2ee;
         }
 
-        .inline-note {
-            font-size: 0.75rem;
-            color: #a78666;
-            margin-top: 6px;
-        }
-
+        /* footer 全新版權 */
         footer {
-            background: #f3ece2;
-            padding: 32px 0;
+            background: #1f6a7c;
+            padding: 36px 0 32px;
             text-align: center;
-            color: #6f553b;
+            color: #fcf7e8;
+            border-top: 1px solid #479cb0;
             margin-top: 24px;
         }
-
-        /* 響應式 */
-        @media (max-width: 760px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-inner { justify-content: center; }
-            .container { padding: 0 20px; }
-            .section { padding: 48px 0; }
+        .footer-copyright {
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+        .footer-copyright p {
+            margin: 6px 0;
+        }
+        .footer-legal {
+            font-size: 0.7rem;
+            opacity: 0.85;
+            margin-top: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 18px 0 8px;
+        }
+        .footer-social-links a {
+            color: #ffecb3;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .footer-social-links a:hover {
+            color: #ffffff;
+            text-decoration: underline;
         }
 
-        /* 模態框 (lightbox) */
+        @media (max-width: 760px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-inner { flex-wrap: nowrap; }
+            .container { padding: 0 20px; }
+            .carousel-btn { padding: 8px 14px; font-size: 1.5rem; }
+        }
+
+        /* 燈箱 */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 0, 0, 0.85);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -382,115 +550,138 @@
 
 <nav class="navbar">
     <div class="container nav-inner">
-        <span class="logo">🎨 畫夢手札 · 繪畫委託</span>
-        <div class="nav-links">
-            <a href="#gallery">作品集</a>
-            <a href="#services">委託方案</a>
-            <a href="#process">流程說明</a>
-            <a href="#contact">委託洽詢</a>
+        <!-- 左上角：深海旅館 -->
+        <div class="logo"> 深海旅館 </div>
+        <!-- 右上角漢堡選單（三橫線） -->
+        <div class="hamburger" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
 </nav>
+
+<!-- 側邊選單內容 -->
+<div class="side-menu" id="sideMenu">
+    <a href="#gallery">作品參考</a>
+    <a href="#services">價目表</a>
+    <a href="#contact">聯絡方式</a>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
 
 <main>
     <!-- Hero -->
     <div class="hero">
         <div class="container">
-            <h1>將想像化為永恆筆觸</h1>
-            <p>客製插畫 · 角色設計 · 似顏繪 · 專屬於你的故事視覺化</p>
-            <div style="margin-top: 32px;">
-                <a href="#contact" class="btn btn-primary" style="margin-right: 12px;">✨ 開始委託</a>
-                <a href="#gallery" class="btn btn-outline">🎨 瀏覽作品</a>
+            <h1>深海旅館 · 繪畫委託</h1>
+            <div class="sub">將回憶化作浪潮，每一筆都是深海的呢喃。<br>角色設計 · 深海系插畫 · 靈魂委託</div>
+            <div class="social-icons">
+                <a href="https://instagram.com/deepsearoaming" target="_blank">📷 IG @deepsearoaming</a>
+                <a href="https://twitter.com/deepsearoaming" target="_blank">🐦 X @deepsearoaming</a>
+                <a href="https://facebook.com/深海漫遊" target="_blank">📘 FB 深海漫遊</a>
+            </div>
+            <div style="margin-top: 36px;">
+                <a href="#contact" class="btn btn-primary" style="margin-right: 12px;">🐟 開始委託</a>
+                <a href="#gallery" class="btn btn-outline">🌊 瀏覽深海畫廊</a>
             </div>
         </div>
     </div>
 
-    <!-- 作品展示區 Gallery -->
+    <!-- 左右切換畫廊：作品參考區塊 -->
     <div class="section" id="gallery">
         <div class="container">
-            <h2 class="section-title">精選畫作 · 靈感印記</h2>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- 作品會由JS動態生成，但為了無縫展示直接用HTML+JS混合填充，保留後台可維護性 -->
+            <h2 class="section-title">深海旅館 · 典藏繪作</h2>
+            <div class="carousel-gallery">
+                <div class="carousel-container">
+                    <div class="carousel-slide" id="carouselSlide"></div>
+                    <button class="carousel-btn btn-prev" id="prevBtn">‹</button>
+                    <button class="carousel-btn btn-next" id="nextBtn">›</button>
+                </div>
+                <div class="carousel-caption" id="carouselCaption">
+                    <h3>深海旅館 · 大廳</h3>
+                    <p>古老吊燈與水母光影</p>
+                </div>
+                <div class="gallery-dots" id="dotsContainer"></div>
             </div>
-            <p style="text-align: center; margin-top: 32px; color: #a17e60;">※ 點擊圖片可放大欣賞細節</p>
+            <p style="text-align: center; margin-top: 32px; color: #639bac;">✨ 點開畫作放大細節，左右瀏覽深海收藏</p>
         </div>
     </div>
 
-    <!-- 委託方案 -->
-    <div class="section" id="services" style="background: #fef7ef;">
+    <!-- 委託方案 (價目表) -->
+    <div class="section" id="services" style="background: #fefcf5;">
         <div class="container">
-            <h2 class="section-title">委託方案</h2>
+            <h2 class="section-title">深海旅店 · 夢境艙位</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>✨ 輕量插畫</h3>
+                    <h3>🐚 水母燈 · 輕量繪</h3>
                     <div class="price">HK$380 <small>起</small></div>
-                    <p>單人半身 / Q版角色<br>簡單背景，線條清新</p>
-                    <div style="margin-top: 20px;">🖌️ 適合頭像/社群貼圖</div>
+                    <p>單人半身 / Q版深海住民<br>溫柔淡彩，微光背景</p>
+                    <div>🪼 適合頭像/社群浮游</div>
                 </div>
                 <div class="service-card">
-                    <h3>🎨 精緻立繪</h3>
+                    <h3>🌊 珊瑚宮 · 精緻立繪</h3>
                     <div class="price">HK$880 <small>起</small></div>
-                    <p>全身角色設計 / 細膩上色<br>含基礎場景或特效</p>
-                    <div style="margin-top: 20px;">🌟 OC委託・人設圖</div>
+                    <p>全身角色／深海OC設計<br>細膩上色+專屬道具</p>
+                    <div>🐟 深海人設/紀念插圖</div>
                 </div>
                 <div class="service-card">
-                    <h3>🏞️ 情境插畫</h3>
+                    <h3>🏯 遺忘之淵 · 情境繪</h3>
                     <div class="price">HK$1580 <small>起</small></div>
-                    <p>雙人以上＋完整構圖<br>故事氛圍、精細背景</p>
-                    <div style="margin-top: 20px;">🎭 紀念插圖/小說封面</div>
+                    <p>雙人以上+完整深海場景<br>古老旅館氛圍敘事</p>
+                    <div>🌌 小說封面/深淵記憶</div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 28px; font-size: 0.85rem;">※ 實際報價依據複雜度微調，歡迎討論您的專屬需求。</p>
+            <p style="text-align: center; margin-top: 28px; font-size: 0.85rem;">※ 依據複雜度微調，歡迎帶故事入住深海旅館。</p>
         </div>
     </div>
 
-    <!-- 委託流程區塊 -->
+    <!-- 委託流程 -->
     <div class="section" id="process">
         <div class="container">
-            <h2 class="section-title">簡單四步 · 擁有專屬畫作</h2>
+            <h2 class="section-title">深海旅館 · 入住委託流程</h2>
             <div class="steps">
-                <div class="step"><div class="step-num">1</div><strong>📋 討論需求</strong><br><span style="font-size: 0.85rem;">主題、風格、用途、參考圖</span></div>
-                <div class="step"><div class="step-num">2</div><strong>✍️ 報價與排程</strong><br><span style="font-size: 0.85rem;">確認方案、支付訂金(50%)</span></div>
-                <div class="step"><div class="step-num">3</div><strong>🎨 草稿確認</strong><br><span style="font-size: 0.85rem;">線稿階段可微調2次</span></div>
-                <div class="step"><div class="step-num">4</div><strong>💌 完稿交付</strong><br><span style="font-size: 0.85rem;">數位檔案，可商用授權另議</span></div>
+                <div class="step"><div class="step-num">1</div><strong>📜 投遞漂流瓶</strong><br><span>描述角色/情境/風格參考</span></div>
+                <div class="step"><div class="step-num">2</div><strong>⚓ 報價&檔期</strong><br><span>確認艙位、支付訂金(50%)</span></div>
+                <div class="step"><div class="step-num">3</div><strong>✍️ 深海草稿</strong><br><span>線稿調整2次，寧靜打磨</span></div>
+                <div class="step"><div class="step-num">4</div><strong>🎁 完稿交付</strong><br><span>數位檔案＋深海旅館小禮</span></div>
             </div>
         </div>
     </div>
 
-    <!-- 委託表單 + 聯繫方式 -->
+    <!-- 聯絡方式表單 -->
     <div class="section" id="contact">
         <div class="container">
-            <h2 class="section-title">委託洽詢</h2>
+            <h2 class="section-title">旅店來信 · 委託洽詢</h2>
             <div class="form-card">
                 <form id="commissionForm">
                     <div class="form-group">
-                        <label>如何稱呼 *</label>
-                        <input type="text" id="name" required placeholder="例: 林同學 / 小嵐">
+                        <label>深海旅人名稱 *</label>
+                        <input type="text" id="name" required placeholder="例如：深潛者艾莉">
                     </div>
                     <div class="form-group">
-                        <label>電子信箱 *</label>
-                        <input type="email" id="email" required placeholder="your@email.com">
+                        <label>電子信箱 (寄送深海水紋信件) *</label>
+                        <input type="email" id="email" required placeholder="your@deepsea.com">
                     </div>
                     <div class="form-group">
-                        <label>感興趣的方案</label>
+                        <label>感興趣的艙位</label>
                         <select id="serviceType">
-                            <option value="輕量插畫">✨ 輕量插畫 (HK$380起)</option>
-                            <option value="精緻立繪">🎨 精緻立繪 (HK$880起)</option>
-                            <option value="情境插畫">🏞️ 情境插畫 (HK$1580起)</option>
-                            <option value="其他/客製">💬 其他/客製報價</option>
+                            <option value="水母燈 · 輕量繪">🐚 水母燈 · 輕量繪 (HK$380起)</option>
+                            <option value="珊瑚宮 · 精緻立繪">🌊 珊瑚宮 · 精緻立繪 (HK$880起)</option>
+                            <option value="遺忘之淵 · 情境繪">🏯 遺忘之淵 · 情境繪 (HK$1580起)</option>
+                            <option value="其他/客製深海幻想">💬 其他/深海客製</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>繪畫需求描述 *</label>
-                        <textarea rows="4" id="message" placeholder="請描述您想要的角色、動作、場景、風格參考（或直接附上構想）......" required></textarea>
-                        <div class="inline-note">我會在1~2個工作天內回覆您！</div>
+                        <label>漂流瓶訊息 (繪畫需求) *</label>
+                        <textarea rows="4" id="message" placeholder="請描述角色外觀、深海背景故事、想要的氛圍... 例如：『人魚坐在旅館窗邊凝視沉船』"></textarea>
+                        <div class="inline-note" style="color:#6f9aaa;">我會在潮汐之間回覆您 (1~2個工作天內)</div>
                     </div>
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" style="padding: 12px 36px;">💌 送出委託詢問</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 12px 36px;">🌊 投遞漂流瓶</button>
                     </div>
-                    <p style="font-size: 0.7rem; text-align: center; margin-top: 20px;">提交後我將以郵件聯繫，討論草稿與細節。<br>也可直接聯絡 IG: @art_studio_dream</p>
+                    <p style="font-size: 0.7rem; text-align: center; margin-top: 20px; color:#528f9e;">也可直接聯繫 IG @deepsearoaming 或 X @deepsearoaming<br>深海漫遊 Deepsearoaming 等待您的故事</p>
                 </form>
-                <div id="formFeedback" style="margin-top: 20px; text-align: center; font-weight: 500;"></div>
+                <div id="formFeedback" style="margin-top: 20px; text-align: center; font-weight: 500; color:#cc7a5c;"></div>
             </div>
         </div>
     </div>
@@ -498,77 +689,118 @@
 
 <footer>
     <div class="container">
-        <p>© 2025 畫夢手札 · 溫柔繪製每一份委託 | 禁止擅自轉載商用</p>
-        <p style="margin-top: 8px;">✉️ 合作/委託信箱：commissions@artdream.com  |  💬 回覆時間 10:00-19:00</p>
+        <div class="footer-copyright">
+            <p>© 2026 深海漫遊 · Deepsearoaming．版權所有</p>
+            <p>所有作品的著作權全歸我方所有。</p>
+            <p>作品僅供參考，禁止私自下載用於AI訓練。</p>
+        </div>
+        <div class="footer-social-links">
+            <a href="https://instagram.com/deepsearoaming" target="_blank">IG: @deepsearoaming</a>
+            <a href="https://twitter.com/deepsearoaming" target="_blank">X: @deepsearoaming</a>
+            <a href="https://facebook.com/深海漫遊" target="_blank">FB: 深海漫遊</a>
+            <a href="mailto:deepsearoaming@gmail.com">✉️ deepsearoaming@gmail.com</a>
+        </div>
+        <div class="footer-legal">
+            請勿隨意擷取使用或轉載此網站內容。
+
+        </div>
     </div>
 </footer>
 
 <!-- 圖片放大燈箱 -->
 <div id="imageModal" class="modal">
-    <span class="close-modal">&times;</span>
+    <span class="close-modal">✕</span>
     <div class="modal-content">
-        <img id="modalImg" src="" alt="放大的作品">
+        <img id="modalImg" src="" alt="深海畫作">
     </div>
 </div>
 
 <script>
-    // ------------------------------
-    // 作品資料庫 (展示作品, 無第三方, 全部內建示範圖片使用優質圖庫與placeholder)
-    // 為了符合繪畫風格，使用精選unsplash 藝術相關並符合色調，同時保留自訂義的說明。
-    // 由於真實委託展示會需要您自行替換為實際作品，這裡模擬真實畫廊介面
-    // 使用一組高品質illustrative placeholder (picsum搭配主題但手繪感可自行替換)
-    // 為了質感，設定9件作品 包括角色/風景/委託風格
-    const artworks = [
-        { title: "夏夜精靈", desc: "水彩風格 · 原創角色委託", img: "https://picsum.photos/id/106/600/600?grayscale" },
-        { title: "貓與花園", desc: "治癒系Q版 · 寵物似顏繪", img: "https://picsum.photos/id/20/600/600" },
-        { title: "星塵旅人", desc: "奇幻風格 · 人物立繪", img: "https://picsum.photos/id/169/600/600" },
-        { title: "春櫻少女", desc: "日系柔和 · 半身插畫", img: "https://picsum.photos/id/96/600/600" },
-        { title: "古典書信", desc: "復古線稿＋淡彩", img: "https://picsum.photos/id/117/600/600" },
-        { title: "深海之歌", desc: "厚塗氛圍 · 情境插圖", img: "https://picsum.photos/id/155/600/600" },
-        { title: "都市霓虹", desc: "賽博龐克風角色", img: "https://picsum.photos/id/3/600/600" },
-        { title: "午後咖啡館", desc: "雙人互動 · 紀念插畫", img: "https://picsum.photos/id/30/600/600" },
-        { title: "獨角獸之夢", desc: "夢幻童話委託", img: "https://picsum.photos/id/59/600/600" }
+    // 深海旅館作品資料 (左右切換畫廊)
+    const deepArtworks = [
+        { title: "深海旅館 · 大廳", desc: "古老吊燈與水母光影", img: "https://picsum.photos/id/104/800/800" },
+        { title: "人魚房客", desc: "委託·深海住民半身像", img: "https://picsum.photos/id/128/800/800" },
+        { title: "遺忘之淵", desc: "雙人插畫 深海記憶", img: "https://picsum.photos/id/155/800/800" },
+        { title: "珊瑚郵差", desc: "角色設計·溫暖深海", img: "https://picsum.photos/id/29/800/800" },
+        { title: "沉船茶會", desc: "情境委託 奇幻敘事", img: "https://picsum.photos/id/96/800/800" },
+        { title: "深海漫遊者", desc: "深海漫遊Deepsearoaming 原創", img: "https://picsum.photos/id/118/800/800" },
+        { title: "水母燈侍女", desc: "輕量插畫·旅館服務生", img: "https://picsum.photos/id/106/800/800" },
+        { title: "潮間帶書閣", desc: "精緻背景練習", img: "https://picsum.photos/id/20/800/800" },
+        { title: "星與海溝", desc: "夢幻深海氛圍", img: "https://picsum.photos/id/169/800/800" }
     ];
-    
-    // 改為更有繪畫感的高品質圖像，為了視覺統一，改用可自定義但風格一致的方式：可自定義圖片。
-    // 由於無外部限制，也讓使用者未來替換圖片路徑即可。
-    // 為了視覺溫馨，我增加一組更接近手繪氛圍的placeholder概念，但為了演示美觀，保留可點擊及hover。
-    // 改寫artworks使用較有藝術感的圖片ID (帶有色彩)
-    const finalArtworks = [
-        { title: "微風少女", desc: "水彩風格 · 半身插畫委託", img: "https://picsum.photos/id/127/600/600" },
-        { title: "狐與燈籠", desc: "和風奇幻 · 角色設定", img: "https://picsum.photos/id/128/600/600" },
-        { title: "花之精靈", desc: "透明水色 · 精緻頭像", img: "https://picsum.photos/id/29/600/600" },
-        { title: "城市剪影", desc: "雙人情境插畫", img: "https://picsum.photos/id/104/600/600" },
-        { title: "神祇低語", desc: "厚塗神話風格", img: "https://picsum.photos/id/188/600/600" },
-        { title: "庭園少女", desc: "復古洋裝 · 全身立繪", img: "https://picsum.photos/id/95/600/600" },
-        { title: "暖冬毛衣", desc: "溫馨日常似顏繪", img: "https://picsum.photos/id/26/600/600" },
-        { title: "星辰魔法使", desc: "華麗法陣背景", img: "https://picsum.photos/id/118/600/600" },
-        { title: "夢境茶會", desc: "群像插畫 · 紀念委託", img: "https://picsum.photos/id/169/600/600" }
-    ];
-    
-    function renderGallery() {
-        const galleryContainer = document.getElementById('galleryGrid');
-        if (!galleryContainer) return;
-        galleryContainer.innerHTML = '';
-        finalArtworks.forEach(art => {
-            const card = document.createElement('div');
-            card.className = 'art-card';
-            card.innerHTML = `
-                <img class="art-img" src="${art.img}" alt="${art.title}" loading="lazy">
-                <div class="art-info">
-                    <div class="art-title">${art.title}</div>
-                    <div class="art-desc">${art.desc}</div>
-                </div>
-            `;
-            card.addEventListener('click', (e) => {
+
+    let currentIndex = 0;
+    const slideContainer = document.getElementById('carouselSlide');
+    const captionTitle = document.querySelector('#carouselCaption h3');
+    const captionDesc = document.querySelector('#carouselCaption p');
+    const dotsContainer = document.getElementById('dotsContainer');
+
+    function buildCarousel() {
+        slideContainer.innerHTML = '';
+        deepArtworks.forEach((art, idx) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'carousel-item';
+            const img = document.createElement('img');
+            img.src = art.img;
+            img.alt = art.title;
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', (e) => {
                 e.stopPropagation();
                 openModal(art.img, art.title);
             });
-            galleryContainer.appendChild(card);
+            slideDiv.appendChild(img);
+            slideContainer.appendChild(slideDiv);
+        });
+        updateCarousel();
+        createDots();
+        updateCaption();
+    }
+
+    function updateCarousel() {
+        const translateX = -currentIndex * 100;
+        slideContainer.style.transform = `translateX(${translateX}%)`;
+        updateDotsActive();
+        updateCaption();
+    }
+
+    function updateCaption() {
+        const art = deepArtworks[currentIndex];
+        captionTitle.innerText = art.title;
+        captionDesc.innerText = art.desc;
+    }
+
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        deepArtworks.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === currentIndex) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = idx;
+                updateCarousel();
+            });
+            dotsContainer.appendChild(dot);
         });
     }
 
-    // 模態框功能
+    function updateDotsActive() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + deepArtworks.length) % deepArtworks.length;
+        updateCarousel();
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % deepArtworks.length;
+        updateCarousel();
+    });
+
+    // 燈箱
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     function openModal(imgSrc, altText) {
@@ -586,29 +818,69 @@
     });
     document.querySelector('.close-modal')?.addEventListener('click', closeModal);
 
-    // 表單提交 (模擬發送，展示提示，硬轉正能量小趣味)
+    // 漢堡選單互動
+    const hamburger = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('menuOverlay');
+    function openMenu() {
+        sideMenu.classList.add('open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+        sideMenu.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', openMenu);
+    overlay.addEventListener('click', closeMenu);
+    // 點選單內連結後關閉
+    const menuLinks = sideMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeMenu();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // 表單提交
     const form = document.getElementById('commissionForm');
     const feedbackDiv = document.getElementById('formFeedback');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const service = document.getElementById('serviceType').value;
         const message = document.getElementById('message').value.trim();
         if (!name || !email || !message) {
-            feedbackDiv.innerHTML = '<span style="color:#b1624b;">✨ 請填寫必要欄位，讓我能更了解您的想法～</span>';
+            feedbackDiv.innerHTML = '<span style="color:#c96742;">🌊 請完整填寫漂流瓶訊息，讓深海旅館聽見您的故事～</span>';
             return;
         }
-        // 模擬發送成功 + 正向小彩蛋 (泰式幽默轉正能量)
-        feedbackDiv.innerHTML = '<span style="color:#7f5a3a;">📮 感謝您的委託詢問！畫筆已經開始發燙了～ ✨<br> 我會在24小時內回信給您，一起創作出最棒的作品！(◍•ᴗ•◍)</span>';
+        feedbackDiv.innerHTML = '<span style="color:#418ea3;">✨ 漂流瓶已投入洋流！深海漫遊會盡快回覆您，一起編織屬於深海的繪卷 🐙✨</span>';
         form.reset();
         setTimeout(() => {
             feedbackDiv.innerHTML = '';
         }, 6000);
-        // 控制台展示正能量
-        console.log(`%c✨ 委託需求來自 ${name} , 主題: ${service} , 已準備好為您繪製夢想！`, 'color: #c2855e; font-size: 14px;');
-        // 實際情境下可對接後端API，但前端展示無需發送真實郵件。
     });
 
-    // 導航平滑捲動
-    document.querySelectorAll('.nav-links a, .hero .btn
+    // 平滑導航 (保留)
+    document.querySelectorAll('.hero .btn, .social-icons a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            if (hash && hash.startsWith('#')) {
+                e.preventDefault();
+                const targetId = hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    buildCarousel();
+</script>
+</body>
+</html>
